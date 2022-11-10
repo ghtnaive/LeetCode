@@ -26,29 +26,12 @@ public class Solution
             {
                 result += 1;
 
-                while (left <= right)
-                {
-                    int m = nums[left];
-                    
-                    if (counts[m] == 1)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        counts[m]--;
-                    }
-
-                    left++;
-                    d++;
-                }
-
+                d += this.MoveLeftPointer(nums, ref left, right, counts);
                 result += d;
             }
             else if (counts.Count > k)
             {
                 result += 1;
-                d = 0;
 
                 while (counts.Count > k)
                 {
@@ -66,23 +49,7 @@ public class Solution
                     left++;
                 }
 
-                while (left <= right)
-                {
-                    int m = nums[left];
-                    
-                    if (counts[m] == 1)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        counts[m]--;
-                    }
-
-                    left++;
-                    d++;
-                }
-
+                d = this.MoveLeftPointer(nums, ref left, right, counts);
                 result += d;
             }
 
@@ -90,5 +57,29 @@ public class Solution
         }
 
         return result;
+    }
+
+    private int MoveLeftPointer(int[] nums, ref int left, int right, IDictionary<int, int> counts)
+    {
+        int d = 0;
+
+        while (left <= right)
+        {
+            int m = nums[left];
+            
+            if (counts[m] == 1)
+            {
+                break;
+            }
+            else
+            {
+                counts[m]--;
+            }
+
+            left++;
+            d++;
+        }
+
+        return d;
     }
 }
